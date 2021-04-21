@@ -7,6 +7,7 @@ struct cursorPosition
 	int row; // row
 	int column; // column
 };
+
 //class lcdError
 //{
 //public:
@@ -14,6 +15,7 @@ struct cursorPosition
 //	std::string getErrorDescription();
 //	unsigned long getErrorCode();
 //};
+
 class basicLCD
 {
 public:
@@ -24,7 +26,7 @@ public:
 	* Resulta: Constructor de la clase. Inicializa el LCD y deja
 	* todo listo comenzar a utilizarlo.
 	*
-	* cadd =1 (cursor address) (ver NOTA 1)
+	* cadd = 1 (cursor address) (ver NOTA 1)
 	*=====================================================*/
 	basicLCD() {};
 
@@ -52,7 +54,7 @@ public:
 	* Resulta: No genera ningún cambio en el display.
 	* Devuelve en su nombre un lcdError&
 	*=====================================================*/
-	//virtual lcdError lcdGetError() = 0;                               // TODO
+	//virtual lcdError lcdGetError() = 0;                               // TODO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
 	/*=====================================================
 	* Name: lcdClear
 	* Entra: -
@@ -85,7 +87,7 @@ public:
 	* basicLCD lcd;
 	* lcd << ‘a’ << ‘b’ << ‘c’;
 	*=====================================================*/
-	virtual basicLCD& operator<<(const unsigned char c) = 0;               
+	virtual basicLCD& operator<<(const unsigned char c) = 0;
 	/*=====================================================
 	* Name: operator<<()
 	* Entra: Una cadena de caracteres NULL terminated

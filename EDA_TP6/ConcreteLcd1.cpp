@@ -15,8 +15,8 @@
 #define FILS	2
 #define COLS	16
 
-#define CHAR_Y_SIZE		((double)D_HEIGTH / FILS)  		
-#define CHAR_X_SIZE		((double)D_WIDTH / COLS)
+#define OFFSETY		((double)D_HEIGTH / FILS)  		
+#define OFFSETX		((double)D_WIDTH / COLS)
 
 #define FONT			"OpenSans-Semibold.ttf"
 
@@ -195,13 +195,13 @@ void ConcreteLcd1::drawDisplay()
 	{
 		for (int j = 0; j < 16; j++)
 		{
-			al_draw_filled_rectangle( CHAR_X_SIZE * j, CHAR_Y_SIZE * i, CHAR_X_SIZE * j + CHAR_X_SIZE,  CHAR_Y_SIZE * i + CHAR_Y_SIZE , al_color_name("green"));
-			al_draw_textf(font, al_map_rgb(0, 0, 0), CHAR_X_SIZE * j + CHAR_X_SIZE / 2, CHAR_Y_SIZE * i + CHAR_Y_SIZE / 2, 0, "%c", matrix[i][j].character);
+			al_draw_filled_rectangle( OFFSETX * j, OFFSETY * i, OFFSETX * j + OFFSETX,  OFFSETY * i + OFFSETY , al_color_name("green"));
+			al_draw_textf(font, al_map_rgb(0, 0, 0), OFFSETX * j + OFFSETX / 2, OFFSETY * i + OFFSETY / 2, 0, "%c", matrix[i][j].character);
 		}
 	}
 
-	al_draw_filled_rectangle(CHAR_X_SIZE * lcdCursor.column, CHAR_Y_SIZE * lcdCursor.row, CHAR_X_SIZE * lcdCursor.column + CHAR_X_SIZE, CHAR_Y_SIZE * lcdCursor.row + CHAR_Y_SIZE, al_color_name("white"));
-	al_draw_textf(font, al_map_rgb(0, 0, 0), CHAR_X_SIZE * lcdCursor.column + CHAR_X_SIZE / 2, CHAR_Y_SIZE * lcdCursor.row + CHAR_Y_SIZE / 2, 0, "%c", matrix[lcdCursor.row][lcdCursor.column].character);
+	al_draw_filled_rectangle(OFFSETX * lcdCursor.column, OFFSETY * lcdCursor.row, OFFSETX * lcdCursor.column + OFFSETX, OFFSETY * lcdCursor.row + OFFSETY, al_color_name("white"));
+	al_draw_textf(font, al_map_rgb(0, 0, 0), OFFSETX * lcdCursor.column + OFFSETX / 2, OFFSETY * lcdCursor.row + OFFSETY / 2, 0, "%c", matrix[lcdCursor.row][lcdCursor.column].character);
 
 
 	for (int j = 1; j < 16; j++)
