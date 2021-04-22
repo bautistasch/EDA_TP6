@@ -34,7 +34,6 @@ LCD2::LCD2() {
 	initializedGood = true;
 
 	redraw();
-
 }
 
 LCD2::~LCD2() {
@@ -42,6 +41,7 @@ LCD2::~LCD2() {
 	al_destroy_bitmap(lcdImg);
 	al_destroy_font(lcdFont);
 
+	cout << "destruido" << endl;
 }
 
 bool LCD2::lcdInitOk() {

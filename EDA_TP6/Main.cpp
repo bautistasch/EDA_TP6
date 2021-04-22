@@ -29,16 +29,24 @@ int main()
 	// End Test Lcd1
 	*/
 
-	LCD2* lcd;		//Cambiar aca el tipo de objeto LCD si se quiere probar otro
+	basicLCD* lcd[3];		
 
 	try {
 		initAllegro();
-		lcd = new LCD2;		//Cambiar aca tambien
-
-		if (lcd->lcdInitOk()) {
-			runSimulation(lcd);	
+		lcd[0] = new LCD2;		
+		lcd[1] = new ConcreteLcd1;
+		lcd[2] = new LCD2; //Cambiar LCD2 por LCDMati
+		
+		for (int i = 0; i < 3; i++) {	
+			lcd[i]->lcdInitOk();
 		}
-		delete lcd;
+		
+		runSimulation(lcd);
+
+		for (int i = 0; i < 3; i++) {
+			delete lcd[i];
+		}
+		
 	}
 	catch(const exception& e){
 		cout << "Exception: " << e.what() << endl;

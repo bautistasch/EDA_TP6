@@ -65,13 +65,13 @@ void initAllegro() {
 
 }
 
-void runSimulation(basicLCD* lcds) {
+void runSimulation(basicLCD* lcd[3]) {
 
 	ALLEGRO_EVENT e;
 	string keyboardIn;
 	bool isRunning = true;
 	int LCDSelected = 0;
-	basicLCD* currentLCD = &lcds[LCDSelected];
+	basicLCD* currentLCD = lcd[LCDSelected];
 
 	while (isRunning) {
 
@@ -109,8 +109,7 @@ void runSimulation(basicLCD* lcds) {
 							currentLCD->lcdClear();
 							break;
 
-						case ALLEGRO_KEY_LSHIFT:
-						case ALLEGRO_KEY_RSHIFT:
+						case ALLEGRO_KEY_TAB:
 							currentLCD->lcdClearToEOL();
 							break;
 
@@ -137,11 +136,23 @@ void runSimulation(basicLCD* lcds) {
 							else {
 								LCDSelected = 0;
 							}
+
+							currentLCD = lcd[LCDSelected];
+							
 							break;
 
 						default:
+							
 							if (ISALLEGROALPHANUMERIC(e.keyboard.keycode)) {
 								char c = (char) KEYCODETOCHAR(e.keyboard.keycode);
+								keyboardIn.push_back(c);
+							}
+							else if(e.keyboard.keycode == 75){	//75: espacio 
+								char c = e.keyboard.keycode-43;
+								keyboardIn.push_back(c);
+							}
+							else if (e.keyboard.keycode == 74) { //74: signo de pregunta
+								char c = e.keyboard.keycode - 11;
 								keyboardIn.push_back(c);
 							}
 							break;

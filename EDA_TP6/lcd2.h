@@ -10,7 +10,7 @@ class LCD2 : public basicLCD {
 	public:
 
 		LCD2();
-		~LCD2();
+		virtual ~LCD2();
 
 		bool lcdInitOk();
 
@@ -34,5 +34,6 @@ class LCD2 : public basicLCD {
 		std::string msg;
 		ALLEGRO_BITMAP* lcdImg;
 		ALLEGRO_FONT* lcdFont;
+
 		void redraw();
 };
