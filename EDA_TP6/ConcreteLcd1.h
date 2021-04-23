@@ -29,6 +29,10 @@ public:
 			}
 		}
 		AllegroInitialized = false;
+		lcdCursor.column = 0;
+		lcdCursor.row = 0;
+		display = nullptr;
+		font = nullptr;
 	};
 	~ConcreteLcd1();
 	bool lcdInitOk();
