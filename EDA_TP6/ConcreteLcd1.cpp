@@ -21,6 +21,14 @@
 #define FONT			"OpenSans-Semibold.ttf"
 
 
+ConcreteLcd1::~ConcreteLcd1()
+{
+	if (AllegroInitialized)
+	{
+		DeleteAllegroResources();
+	}
+}
+
 void ConcreteLcd1::lcdSetChar(int i, int j, unsigned char a)
 {
 	matrix[i][j].character =  a;
@@ -179,6 +187,8 @@ bool ConcreteLcd1::initAllegroLCD1()
 		al_destroy_font(font);
 		return false;
 	}
+	drawDisplay();
+	AllegroInitialized = true;
 	return true;
 }
 

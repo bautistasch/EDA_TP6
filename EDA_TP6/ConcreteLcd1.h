@@ -28,8 +28,9 @@ public:
 				matrix[i][j].character = '\0';            
 			}
 		}
+		AllegroInitialized = false;
 	};
-	~ConcreteLcd1() {};
+	~ConcreteLcd1();
 	bool lcdInitOk();
 	//lcdError lcdGetError();
 	bool lcdClear();
@@ -46,6 +47,7 @@ private:
 	LcdMatrix matrix;
 	void DeleteAllegroResources();
 	bool initAllegroLCD1();
+	bool AllegroInitialized;
 	void lcdSetChar(int i, int j, unsigned char a);
 	void drawDisplay();
 	int getFreeChars();
