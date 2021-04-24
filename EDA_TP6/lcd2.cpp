@@ -42,7 +42,6 @@ LCD2::~LCD2() {
 	al_destroy_bitmap(lcdImg);
 	al_destroy_font(lcdFont);
 
-	cout << "destruido" << endl;
 }
 
 bool LCD2::lcdInitOk() {
@@ -171,7 +170,9 @@ bool LCD2::lcdClearToEOL() {
 	int from = cursor.row * (MAXCOLS+1) + cursor.column;
 	int to = (from > MAXCOLS) ? (2*MAXCOLS) : (MAXCOLS);
 
-	msg.erase(msg.begin() + from, msg.begin() + to); //Catch the exception if it fails
+	for (int i = from; i <= to; i++) {
+		msg[i] = ' ';
+	}
 
 	redraw();
 
@@ -184,6 +185,23 @@ basicLCD& LCD2::operator<<(const unsigned char* c) {
 	
 	int msgPos = cursor.row * (MAXCOLS+1) + cursor.column;
 
+	if (msgPos + str.size() > 30) {
+
+		int overflow = msgPos + str.size() - 30;
+
+		for (int i = 0; i < str.size(); i++) {
+			msg[msgPos + i] = str[i];
+			lcdMoveCursorRight();
+		}
+	}
+	else {
+		for (int i = 0; i < str.size(); i++) {
+			msg[msgPos + i] = str[i];
+			lcdMoveCursorRight();
+		}
+	}
+
+	/*
 	if (msgPos + str.size() - 1 >= 30) {				//El -1 es para que no tome en cuenta el terminador
 		msg = msg.substr(str.size(), msg.size());
 		string trimmedStr = str.substr(msg.size());
@@ -198,6 +216,7 @@ basicLCD& LCD2::operator<<(const unsigned char* c) {
 			lcdMoveCursorRight();
 		}
 	}
+	*/
 
 	redraw();
 

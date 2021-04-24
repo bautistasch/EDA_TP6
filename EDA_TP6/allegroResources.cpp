@@ -73,6 +73,8 @@ void runSimulation(basicLCD* lcd[3]) {
 	int LCDSelected = 0;
 	basicLCD* currentLCD = lcd[LCDSelected];
 
+	currentLCD->lcdSetCursorPosition(currentLCD->lcdGetCursorPosition());
+
 	while (isRunning) {
 
 		if (!al_is_event_queue_empty(queue)) {
@@ -137,8 +139,8 @@ void runSimulation(basicLCD* lcd[3]) {
 								LCDSelected = 0;
 							}
 
-							currentLCD->lcdSetCursorPosition(currentLCD->lcdGetCursorPosition());
 							currentLCD = lcd[LCDSelected];
+							currentLCD->lcdSetCursorPosition(currentLCD->lcdGetCursorPosition());
 
 							break;
 

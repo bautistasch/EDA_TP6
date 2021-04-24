@@ -54,7 +54,7 @@ public:
 	* Resulta: No genera ningún cambio en el display.
 	* Devuelve en su nombre un lcdError&
 	*=====================================================*/
-	//virtual lcdError lcdGetError() = 0;                               // TODO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+	//virtual lcdError lcdGetError() = 0;                               
 	/*=====================================================
 	* Name: lcdClear
 	* Entra: -
