@@ -8,13 +8,20 @@ struct cursorPosition
 	int column; // column
 };
 
-//class lcdError
-//{
-//public:
-//	std::string getErrorName();
-//	std::string getErrorDescription();
-//	unsigned long getErrorCode();
-//};
+class lcdError
+{
+public:
+	lcdError(std::string name, std::string description, unsigned long code) { errorName = name; errorDescription = description; errorCode = code; };
+	std::string getErrorName();
+	std::string getErrorDescription();
+	unsigned long getErrorCode();
+
+private:
+	std::string errorName;
+	std::string errorDescription;
+	unsigned long errorCode;
+};
+
 
 class basicLCD
 {
@@ -54,7 +61,7 @@ public:
 	* Resulta: No genera ningún cambio en el display.
 	* Devuelve en su nombre un lcdError&
 	*=====================================================*/
-	//virtual lcdError lcdGetError() = 0;                               
+	virtual lcdError lcdGetError() = 0;                               
 	/*=====================================================
 	* Name: lcdClear
 	* Entra: -

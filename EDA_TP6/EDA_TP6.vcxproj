@@ -162,6 +162,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="allegroResources.cpp" />
+    <ClCompile Include="basicLCD.cpp" />
     <ClCompile Include="ConcreteLcd1.cpp" />
     <ClCompile Include="lcd2.cpp" />
     <ClCompile Include="lcd3.cpp" />
