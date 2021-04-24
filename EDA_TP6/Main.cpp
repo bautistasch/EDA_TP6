@@ -1,8 +1,27 @@
+/*
+
+
+
+		 $$$$$$\                                                 $$\   $$\
+		$$  __$$\                                                $$ | $$ |
+		$$ / \__ | $$$$$$\  $$\   $$\  $$$$$$\    $$$$$$\        $$ | $$ |
+		$$ |$$$$\ $$  __$$\ $$ | $$ | $$  __$$\  $$  __$$\       $$$$$$$$|
+		$$ |\_$$| $$ | \__| $$ | $$ | $$ / $$  | $$ /  $$ |		 \_____$$|
+		$$ | $$ | $$ |    | $$ | $$ | $$ | $$  | $$ |  $$ |			   $$|
+		\$$$$$$ | $$ |      \$$$$$$ | $$$$$$$  | \$$$$$$  |			   $$|
+		 \______/ \__|       \______/ $$  ____/   \______/		      \__|
+									  $$ |
+									  $$ |
+									  \__|
+
+*/
+
 #include <iostream>
 #include <stdexcept>
 #include "allegroResources.h"
 #include "ConcreteLcd1.h"
 #include "lcd2.h"
+#include "lcd3.h"
 
 using namespace std;
 
@@ -33,9 +52,9 @@ int main()
 
 	try {
 		initAllegro();
-		lcd[0] = new LCD2;		
+		lcd[0] = new LCD2;	//Solo la que se pone en lcd[0] funciona
 		lcd[1] = new ConcreteLcd1;
-		lcd[2] = new LCD2; //Cambiar LCD2 por LCDMati
+		lcd[2] = new LCD3; /* Arreglar el LCD2 para que no tire error cuando se le manda un string muy grande.Si recibe una cadena de más de 32 caracteres, debe mostrar los últimos 32 en el display.*/
 		
 		for (int i = 0; i < 3; i++) {	
 			lcd[i]->lcdInitOk();
