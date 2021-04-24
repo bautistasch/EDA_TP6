@@ -137,8 +137,9 @@ void runSimulation(basicLCD* lcd[3]) {
 								LCDSelected = 0;
 							}
 
+							currentLCD->lcdSetCursorPosition(currentLCD->lcdGetCursorPosition());
 							currentLCD = lcd[LCDSelected];
-							
+
 							break;
 
 						default:

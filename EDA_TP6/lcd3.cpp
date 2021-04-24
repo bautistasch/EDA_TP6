@@ -6,11 +6,11 @@ LCD3::LCD3()
 {
 	allegro_error = false;
 
-	display3 = al_create_display(SCREEN_W, SCREEN_H);
+	/*display3 = al_create_display(SCREEN_W, SCREEN_H);
 	if (!display3) {
 		fprintf(stderr, "Could not start display.\n");
 		allegro_error = true;
-	}
+	}*/
 
 	font3 = al_load_font("Minecraft.ttf", 50, 0);
 	if (!font3) {
@@ -34,7 +34,7 @@ LCD3::LCD3()
 
 
 LCD3::~LCD3() {
-	al_destroy_display(display3);
+	//al_destroy_display(display3);
 	al_destroy_font(font3);
 }
 

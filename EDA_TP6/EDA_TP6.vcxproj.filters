@@ -55,11 +55,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Desktop\LCD2.png">
-      <Filter>Resource Files\img</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <Font Include="digital-7.ttf">
       <Filter>Resource Files\fonts</Filter>
     </Font>
@@ -72,5 +67,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="LCD2.png">
+      <Filter>Resource Files\img</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@
 #define OFFSETY		((double)D_HEIGTH / FILS)  		
 #define OFFSETX		((double)D_WIDTH / COLS)
 
-#define FONT			"OpenSans-Semibold.ttf"
+#define FONT		"OpenSans-Semibold.ttf"
 
 
 ConcreteLcd1::~ConcreteLcd1()
@@ -181,12 +181,12 @@ bool ConcreteLcd1::initAllegroLCD1()
 	font = al_load_font(FONT, 20, 0);
 	if (font == nullptr)
 		return false;
-	display = al_create_display(D_WIDTH, D_HEIGTH);
+	/*display = al_create_display(D_WIDTH, D_HEIGTH);
 	if(display == nullptr)
 	{
 		al_destroy_font(font);
 		return false;
-	}
+	}*/
 	drawDisplay();
 	AllegroInitialized = true;
 	return true;
@@ -194,7 +194,7 @@ bool ConcreteLcd1::initAllegroLCD1()
 
 void ConcreteLcd1::DeleteAllegroResources()
 {
-	al_destroy_display(display);
+	//al_destroy_display(display);
 	al_destroy_font(font);
 }
 
