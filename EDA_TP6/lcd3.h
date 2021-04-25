@@ -12,6 +12,11 @@
 #define CHAR_LINE_SPACING (SCREEN_H/2)
 #define CHAR_SPACING 40
 #define CHAR_H 45
+#define TTFPATH "Minecraft.ttf"
+#define NCOLUMNS 16
+#define NROWS 2
+#define UP_MARGIN 60
+#define RIGHT_MARGIN 10
 
 class LCD3 : public basicLCD {
 
