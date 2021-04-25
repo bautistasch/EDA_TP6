@@ -112,7 +112,7 @@ bool LCD3::lcdClear() {
 bool LCD3::lcdClearToEOL() {
 	cursorPosition now = pos;
 	finished_printing = false;
-	for (int i = 0; i < (NCOLUMNS * NROWS); i++)//while (end_of_lcd == false)
+	for (int i = pos.column; i <NCOLUMNS ; i++)
 	{
 		*this << ' ';
 	}
