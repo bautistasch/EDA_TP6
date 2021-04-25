@@ -24,6 +24,7 @@ using namespace std;
 
 ALLEGRO_DISPLAY* display;
 ALLEGRO_EVENT_QUEUE* queue;
+ALLEGRO_BITMAP* logo;
 
 void initAllegro() {
 
@@ -62,6 +63,13 @@ void initAllegro() {
 	{
 		throw exception("Error al crear la ventana");
 	}
+
+	//Cargamos y añadimos el logo del programa
+	if (!(logo = al_load_bitmap("TP6logo.png"))) {
+		throw exception("Error al inicializar 'TP6logo.png ");
+	}
+	al_set_window_title(display, "LCD simulator");
+	al_set_display_icon(display, logo);
 
 	//Creamos una cola de eventos
 	queue = al_create_event_queue();

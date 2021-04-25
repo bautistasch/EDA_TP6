@@ -30,6 +30,13 @@ int main()
 	basicLCD* lcd[3];		
 	bool error = false;
 
+	cout<<"Instrucciones:\n\nPara escribir, utiliza el teclado y presiona la tecla ENTER para que se vea en pantalla.Aclaracion, si la palabra que escribiste es muy larga solo apareceran los ultimos 32 caracteres "<< endl;
+	cout << "Para mover el cursor, utiliza la flechas derecha, izquierda, arriba y abajo." << endl;
+	cout << "Para borrar todos los caracteres, utiliza la tecla BACKSPACE." << endl;
+	cout << "Para borrar desde la posicion actual hasta el final, utiliza la tecla TAB." << endl;
+	cout << "Para alternar entre los diferentes lcd, utiliza la tecla CTRL.\n" << endl;
+	
+
 	try {
 		initAllegro();
 
