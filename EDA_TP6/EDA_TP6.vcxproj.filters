@@ -36,6 +36,9 @@
     <ClCompile Include="lcd3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="basicLCD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basicLCD.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lcd3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="configuration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,7 +4,7 @@
 //********************                             
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
-#include <allegro5/allegro_primitives.h>       // meter lo de allegro en otro lado
+#include <allegro5/allegro_primitives.h>       
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 
@@ -20,23 +20,10 @@ typedef charAttributes LcdMatrix[2][16];
 class ConcreteLcd1 : public basicLCD{
 public:
 
-	ConcreteLcd1() {
-		for (int i = 0; i < 2; i++)
-		{
-			for (int j = 0; j < 16; j++)
-			{
-				matrix[i][j].character = '\0';            
-			}
-		}
-		AllegroInitialized = false;
-		lcdCursor.column = 0;
-		lcdCursor.row = 0;
-		display = nullptr;
-		font = nullptr;
-	};
+	ConcreteLcd1();
 	~ConcreteLcd1();
 	bool lcdInitOk();
-	//lcdError lcdGetError();
+	lcdError lcdGetError();
 	bool lcdClear();
 	bool lcdClearToEOL();
 	basicLCD& operator<<(const unsigned char c);
@@ -48,6 +35,11 @@ public:
 	bool lcdSetCursorPosition(const cursorPosition pos);
 	cursorPosition lcdGetCursorPosition();
 private:
+	lcdError error;
+	bool initError;
+	std::string errorName;
+	std::string errorDescription;
+	unsigned long errorCode;
 	LcdMatrix matrix;
 	void DeleteAllegroResources();
 	bool initAllegroLCD1();
@@ -55,7 +47,7 @@ private:
 	void lcdSetChar(int i, int j, unsigned char a);
 	void drawDisplay();
 	int getFreeChars();
-	cursorPosition lcdCursor;          // meter lo de allegro en otra clase?
+	cursorPosition lcdCursor;          
 	ALLEGRO_DISPLAY* display;
 	ALLEGRO_FONT* font;
 };

@@ -1,5 +1,6 @@
 
 #include "allegroResources.h"
+#include "configuration.h"
 #include <stdexcept>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
@@ -47,7 +48,7 @@ void initAllegro() {
 		throw exception("Error al inicializar ttf addon de allegro");
 	}
 
-	display = al_create_display(650, 250);
+	display = al_create_display(SCREENWIDTH, SCREENHEIGHT);
 	if (display == nullptr)
 	{
 		throw exception("Error al crear la ventana");

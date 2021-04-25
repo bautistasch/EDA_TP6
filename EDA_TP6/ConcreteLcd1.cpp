@@ -21,6 +21,33 @@
 #define FONT		"OpenSans-Semibold.ttf"
 
 
+
+ConcreteLcd1::ConcreteLcd1() : error("", "", 0) {
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 16; j++)
+		{
+			matrix[i][j].character = '\0';
+		}
+	}
+	AllegroInitialized = false;
+	lcdCursor.column = 0;
+	lcdCursor.row = 0;
+	display = nullptr;
+	font = nullptr;
+	errorName = "";
+	errorDescription = "";
+	errorCode = 0;
+	if (!initAllegroLCD1())
+	{
+		errorName = "Failed to initalize LCD1";
+		errorDescription = "Unable to create allegro resources";
+		errorCode = 2005;
+		this->error = lcdError(errorName, errorDescription, errorCode);
+	}
+};
+
+
 ConcreteLcd1::~ConcreteLcd1()
 {
 	if (AllegroInitialized)
@@ -28,6 +55,13 @@ ConcreteLcd1::~ConcreteLcd1()
 		DeleteAllegroResources();
 	}
 }
+
+
+lcdError ConcreteLcd1::lcdGetError()
+{
+	return error;
+}
+
 
 void ConcreteLcd1::lcdSetChar(int i, int j, unsigned char a)
 {
@@ -37,7 +71,7 @@ void ConcreteLcd1::lcdSetChar(int i, int j, unsigned char a)
 
 bool ConcreteLcd1::lcdInitOk()
 {
-	return initAllegroLCD1();
+	return AllegroInitialized;
 }
 bool ConcreteLcd1::lcdClear()
 {
