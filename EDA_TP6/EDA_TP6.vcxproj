@@ -171,6 +171,7 @@
     <ClInclude Include="allegroResources.h" />
     <ClInclude Include="basicLCD.h" />
     <ClInclude Include="ConcreteLcd1.h" />
+    <ClInclude Include="configuration.h" />
     <ClInclude Include="lcd2.h" />
     <ClInclude Include="lcd3.h" />
   </ItemGroup>

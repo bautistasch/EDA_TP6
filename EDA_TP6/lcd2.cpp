@@ -1,6 +1,7 @@
 
 #include "LCD2.h"
 #include <stdexcept>
+#include "configuration.h"
 
 #define MAXROWS 1
 #define MAXCOLS 15
@@ -9,7 +10,6 @@
 #define FONTCOLOR al_map_rgb(0, 0, 0)
 #define OFFSETY 55
 #define OFFSETX 34
-
 
 using namespace std;
 
@@ -168,9 +168,9 @@ bool LCD2::lcdClear() {
 bool LCD2::lcdClearToEOL() {
 
 	int from = cursor.row * (MAXCOLS+1) + cursor.column;
-	int to = (from > MAXCOLS) ? (2*MAXCOLS) : (MAXCOLS);
+	int to = (from > MAXCOLS) ? (2*(MAXCOLS+1)) : (MAXCOLS+1);
 
-	for (int i = from; i <= to; i++) {
+	for (int i = from; i < to; i++) {
 		msg[i] = ' ';
 	}
 
@@ -185,12 +185,12 @@ basicLCD& LCD2::operator<<(const unsigned char* c) {
 	
 	int msgPos = cursor.row * (MAXCOLS+1) + cursor.column;
 
-	if (msgPos + str.size() > 30) {
+	if (msgPos + str.size() > 2*(MAXCOLS+1)) {
 
-		int overflow = msgPos + str.size() - 30;
+		int overflow = msgPos + str.size() - 32;
 
-		for (int i = 0; i < str.size(); i++) {
-			msg[msgPos + i] = str[i];
+		for (int i = 0; i < str.size() - overflow; i++) {
+			msg[msgPos + i] = str[i + overflow];
 			lcdMoveCursorRight();
 		}
 	}
@@ -200,23 +200,6 @@ basicLCD& LCD2::operator<<(const unsigned char* c) {
 			lcdMoveCursorRight();
 		}
 	}
-
-	/*
-	if (msgPos + str.size() - 1 >= 30) {				//El -1 es para que no tome en cuenta el terminador
-		msg = msg.substr(str.size(), msg.size());
-		string trimmedStr = str.substr(msg.size());
-		msg.append(trimmedStr);
-
-		cursor.row = MAXROWS;
-		cursor.column = MAXCOLS;
-	}
-	else {
-		for (int i = 0; i < str.size(); i++) {
-			msg[msgPos+i] = str[i];
-			lcdMoveCursorRight();
-		}
-	}
-	*/
 
 	redraw();
 
@@ -241,7 +224,11 @@ void LCD2::redraw() {
 
 	al_clear_to_color(FONTCOLOR);
 
-	al_draw_bitmap(lcdImg, 0, 0, 0);
+	int lcdImgX = al_get_bitmap_width(lcdImg);
+	int lcdImgY = al_get_bitmap_height(lcdImg);
+	float xCorrection = SCREENRATIOX(lcdImgX);
+	float yCorrection = SCREENRATIOY(lcdImgY);
+	al_draw_scaled_bitmap(lcdImg, 0, 0, lcdImgX, lcdImgY, 0, 0, lcdImgX * xCorrection, lcdImgY * yCorrection, 0);
 
 	for (int i = 0; i <= MAXROWS && !finished; i++){
 		for (int j = 0; j <= MAXCOLS && !finished; j++){
@@ -249,7 +236,7 @@ void LCD2::redraw() {
 			int currentPosition = i * (MAXCOLS+1) + j;
 
 			if (currentPosition < msg.size()) {
-				al_draw_textf(lcdFont, FONTCOLOR, OFFSETX * j + OFFSETX / 2, OFFSETY * i + OFFSETY / 2, 0, "%c", msg[currentPosition]);
+				al_draw_textf(lcdFont, FONTCOLOR, (OFFSETX*j + OFFSETX/2) * xCorrection, (OFFSETY*i + OFFSETY/2) * yCorrection, 0, "%c", msg[currentPosition]);
 			}
 			else {
 				finished = true;
@@ -257,7 +244,7 @@ void LCD2::redraw() {
 		}
 	}
 
-	al_draw_text(lcdFont, FONTCOLOR, OFFSETX * cursor.column + OFFSETX / 2, OFFSETY * cursor.row + OFFSETY / 2 + 10, 0, "_");
+	al_draw_text(lcdFont, FONTCOLOR, (OFFSETX*cursor.column + OFFSETX/2) * xCorrection, (OFFSETY*cursor.row + OFFSETY/2 + 10) * yCorrection, 0, "_");
 
 	al_flip_display();
 }
