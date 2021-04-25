@@ -2,22 +2,18 @@
 
 using namespace std;
 
-LCD3::LCD3()
+LCD3::LCD3(): errors("No errors", "LCD2 doesnt have any errors at the moment", 0ul)
 {
-	allegro_error = false;
-
-
+	
 	font3 = al_load_font(TTFPATH, 50, 0);
 	if (!font3) {
-		fprintf(stderr, "Could not load 'MInecraft.ttf'.\n");
-		allegro_error = true;
+		errors = lcdError("Error allegro", "Could not load 'MInecraft.ttf'.\n", 1ul);
 	}
 
 	pos.column = 0;
 	pos.row = 0;
 
 	finished_printing = true;
-	end_of_lcd = false;
 
 	for (int i = 0; i <= 31; i++)
 	{
@@ -33,7 +29,15 @@ LCD3::~LCD3() {
 }
 
 bool LCD3::lcdInitOk() {
-	return !(allegro_error);
+	if (errors.getErrorCode() == 0ul)
+		return true;
+	else
+		return false;
+}
+
+lcdError LCD3::lcdGetError()
+{
+	return errors;
 }
 
 cursorPosition LCD3::lcdGetCursorPosition() {
@@ -70,10 +74,6 @@ bool LCD3::lcdMoveCursorRight() {
 	{
 		pos.row++;
 		pos.column = 0;
-	}
-	else if (pos.column == (NCOLUMNS-1) && pos.row == 1)
-	{
-		end_of_lcd = true;
 	}
 	else if (pos.column< (NCOLUMNS - 1))
 		pos.column++;
@@ -112,12 +112,11 @@ bool LCD3::lcdClear() {
 bool LCD3::lcdClearToEOL() {
 	cursorPosition now = pos;
 	finished_printing = false;
-	while (end_of_lcd == false)
+	for (int i = 0; i < (NCOLUMNS * NROWS); i++)//while (end_of_lcd == false)
 	{
 		*this << ' ';
 	}
 	pos = now;
-	end_of_lcd = false;
 	finished_printing = true;
 	printlcd();
 	return true;
