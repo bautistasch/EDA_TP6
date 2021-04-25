@@ -11,7 +11,8 @@ struct cursorPosition
 class lcdError
 {
 public:
-	lcdError(std::string name, std::string description, unsigned long code) { errorName = name; errorDescription = description; errorCode = code; };
+	lcdError(std::string name, std::string description, unsigned long code);
+
 	std::string getErrorName();
 	std::string getErrorDescription();
 	unsigned long getErrorCode();

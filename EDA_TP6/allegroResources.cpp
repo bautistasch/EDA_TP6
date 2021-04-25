@@ -8,9 +8,16 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h> 
 
+//Macro para saber si la tecla de allegro es una letra
 #define ISAPHABETIC(c) ((ALLEGRO_KEY_A <= (c) && (c) <= ALLEGRO_KEY_Z) ? (1) : (0))
+
+//Macro para determinar si la tecla de allegro es un numero
 #define ISNUMERIC(n) ((ALLEGRO_KEY_0 <= (n) && (n) <= ALLEGRO_KEY_9) ? (1) : (0))
+
+//Macro para saber si la tecla es un numero o una letra
 #define ISALLEGROALPHANUMERIC(c) (( ISAPHABETIC(c) || ISNUMERIC(c) ) ? (1) : (0))
+
+//Macro para pasar de codigo interno de allegro a un char en ascii
 #define KEYCODETOCHAR(k) ( ISAPHABETIC(k) ? ((k)+64) : ((k+21)))
 
 using namespace std;
@@ -20,6 +27,7 @@ ALLEGRO_EVENT_QUEUE* queue;
 
 void initAllegro() {
 
+	//Inicializamos allegro y sus principales addons
 	if (!al_init()) {
 		throw exception("Error al inicializar allegro");
 	}
@@ -48,18 +56,21 @@ void initAllegro() {
 		throw exception("Error al inicializar ttf addon de allegro");
 	}
 
+	//Creamos un display
 	display = al_create_display(SCREENWIDTH, SCREENHEIGHT);
 	if (display == nullptr)
 	{
 		throw exception("Error al crear la ventana");
 	}
 
+	//Creamos una cola de eventos
 	queue = al_create_event_queue();
 	if (queue == nullptr)
 	{
 		throw exception("Error al crear la cola de eventos");
 	}
 
+	//Registramos los eventos de teclado, de display y de mouse en la cola de eventos
 	al_register_event_source(queue, al_get_keyboard_event_source());
 	al_register_event_source(queue, al_get_display_event_source(display));
 	al_register_event_source(queue, al_get_mouse_event_source());      
@@ -69,18 +80,18 @@ void initAllegro() {
 void runSimulation(basicLCD* lcd[3]) {
 
 	ALLEGRO_EVENT e;
-	string keyboardIn;
+	string keyboardIn;		//Buffer de escritura temporal del teclado
 	bool isRunning = true;
 	int LCDSelected = 0;
-	basicLCD* currentLCD = lcd[LCDSelected];
+	basicLCD* currentLCD = lcd[LCDSelected];	//LCD activo
 
-	currentLCD->lcdSetCursorPosition(currentLCD->lcdGetCursorPosition());
+	currentLCD->lcdSetCursorPosition(currentLCD->lcdGetCursorPosition());	//Redibujamos el LCD
 
-	while (isRunning) {
+	while (isRunning) {	//Mientras no se cierre el programa
 
-		if (!al_is_event_queue_empty(queue)) {
+		if (!al_is_event_queue_empty(queue)) {	
 
-			al_wait_for_event(queue, &e);
+			al_wait_for_event(queue, &e);	//Agarramos el siguiente evento y en funcion de eso, realizamos una accion
 
 			switch (e.type)
 			{
@@ -167,7 +178,6 @@ void runSimulation(basicLCD* lcd[3]) {
 					isRunning = false;
 					break;
 			}
-
 		}
 	}
 
@@ -175,6 +185,7 @@ void runSimulation(basicLCD* lcd[3]) {
 
 void destroyAllegro()
 {
+	//Destruimos los recursos de allegro utilizados
 	al_destroy_display(display);
 	al_destroy_event_queue(queue);
 }

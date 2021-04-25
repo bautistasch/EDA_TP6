@@ -27,24 +27,31 @@ using namespace std;
 
 int main()
 {
-
 	basicLCD* lcd[3];		
 	bool error = false;
 
-	initAllegro();
+	try {
+		initAllegro();
 
-	lcd[0] = new LCD2;
-	lcd[1] = new ConcreteLcd1;
-	lcd[2] = new LCD3; 
-		
-	for (int i = 0; i < 3 && !error; i++) {	
-		if (!lcd[i]->lcdInitOk()) {
-			error = true;
+		lcd[0] = new LCD2;
+		lcd[1] = new ConcreteLcd1;
+		lcd[2] = new LCD3;
+
+		for (int i = 0; i < 3 && !error; i++) {
+			if (!lcd[i]->lcdInitOk()) {
+				cout << "Code: " << lcd[i]->lcdGetError().getErrorCode() << " "
+					<< lcd[i]->lcdGetError().getErrorName() << " "
+					<< lcd[i]->lcdGetError().getErrorDescription() << " " << endl;
+				error = true;
+			}
+		}
+
+		if (!error) {
+			runSimulation(lcd);
 		}
 	}
-
-	if (!error) {
-		runSimulation(lcd);
+	catch (exception& e) {
+		cout << e.what() << endl;
 	}
 
 	for (int i = 0; i < 3; i++) {

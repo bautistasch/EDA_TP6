@@ -38,6 +38,7 @@ ConcreteLcd1::ConcreteLcd1() : error("", "", 0) {
 	errorName = "";
 	errorDescription = "";
 	errorCode = 0;
+
 	if (!initAllegroLCD1())
 	{
 		errorName = "Failed to initalize LCD1";
@@ -215,12 +216,7 @@ bool ConcreteLcd1::initAllegroLCD1()
 	font = al_load_font(FONT, 20, 0);
 	if (font == nullptr)
 		return false;
-	/*display = al_create_display(D_WIDTH, D_HEIGTH);
-	if(display == nullptr)
-	{
-		al_destroy_font(font);
-		return false;
-	}*/
+
 	drawDisplay();
 	AllegroInitialized = true;
 	return true;
@@ -228,7 +224,6 @@ bool ConcreteLcd1::initAllegroLCD1()
 
 void ConcreteLcd1::DeleteAllegroResources()
 {
-	//al_destroy_display(display);
 	al_destroy_font(font);
 }
 
