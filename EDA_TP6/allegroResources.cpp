@@ -188,12 +188,12 @@ void runSimulation(basicLCD* lcd[3]) {
 			}
 		}
 	}
-
 }
 
 void destroyAllegro()
 {
 	//Destruimos los recursos de allegro utilizados
-	al_destroy_display(display);
 	al_destroy_event_queue(queue);
+	al_destroy_display(display);
+	
 }
